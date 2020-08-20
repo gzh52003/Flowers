@@ -2,11 +2,22 @@ import Vue from 'vue';
 import VueRouter from 'vue-router'
 
 import Home from '../components/Home.vue'
-import User from '../components/User.vue'
-import Order from '../components/Order.vue'
-import Goods from '../components/Goods.vue'
-import Login from '../components/Login.vue'
-import Reg from '../components/Reg.vue'
+import User from '../components/user/UserIndex.vue'
+import UserList from '../components/user/UserList.vue'
+
+import Order from '../components/order/OrderIndex.vue'
+import OrderList from '../components/order/OrderList.vue'
+
+import Goods from '../components/goods/GoodsIndex.vue'
+import GoodsList from '../components/goods/GoodsList.vue'
+import GoodsMsg from '../components/goods/GoodsMsg.vue'
+import GoodsSort from '../components/goods/GoodsSort.vue'
+
+import AdminManage from '../components/admin/AdminIndex.vue'
+import AdminList from '../components/admin/AdminList.vue'
+import RoleList from '../components/admin/RoleList.vue'
+import Data from '../components/data/Data.vue'
+
 import NotFound from '../components/NotFound.vue'
 
 // 2.使用vue-router
@@ -23,24 +34,47 @@ const router = new VueRouter({
             component: Home
         },{
             path:'/goods',
-            component: Goods
+            component:Goods,
+            children:[{
+                path:'goodslist',
+                component: GoodsList,
+            },{
+                path:'goodsmsg',
+                component: GoodsMsg,
+            },{
+                path:'goodssort',
+                component: GoodsSort,
+            }]
 
         },{
             path:'/order',
-            component: Order
-
+            component:Order,
+            children:[{
+                path:'orderlist',
+                component: OrderList,
+            }]
         },{
             path:'/user',
-            component: User
+            component:User,
+            children:[{
+                path:'userlist',
+                component: UserList,
+            }]
 
         },{
-            path:'/login',
-            component: Login
+            path:'/adminmanage',
+            component: AdminManage,
+            children:[{
+                path:'adminList',
+                component:AdminList
+            },{
+                path:'rolelist',
+                component:RoleList
+            }]
 
         },{
-            path:'/reg',
-            component: Reg
-
+            path:'/data',
+            component:Data
         },{
             path:'/404',
             component: NotFound
