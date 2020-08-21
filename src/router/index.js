@@ -20,68 +20,81 @@ import Data from '../components/data/Data.vue'
 
 import NotFound from '../components/NotFound.vue'
 
+import Public from "../components/Public.vue"
+import Login from "../components/Login.vue"
+
 // 2.使用vue-router
 Vue.use(VueRouter);
 // 实例化router并配置参数
 const router = new VueRouter({
-    routes:[
+    routes: [
         {
-            path:'/',
-            redirect:'/home'
+            path: '/',
+            redirect: '/home'
+        }, {
+            path: "/public",
+            component: Public,
+            children: [
+                {
+                    path: '/home',
+                    component: Home
+                }, {
+                    path: '/goods',
+                    component: Goods,
+                    children: [{
+                        path: 'goodslist',
+                        component: GoodsList,
+                    }, {
+                        path: 'goodsmsg',
+                        component: GoodsMsg,
+                    }, {
+                        path: 'goodssort',
+                        component: GoodsSort,
+                    }]
+
+                }, {
+                    path: '/order',
+                    component: Order,
+                    children: [{
+                        path: 'orderlist',
+                        component: OrderList,
+                    }]
+                }, {
+                    path: '/user',
+                    component: User,
+                    children: [{
+                        path: 'userlist',
+                        component: UserList,
+                    }]
+
+                }, {
+                    path: '/adminmanage',
+                    component: AdminManage,
+                    children: [{
+                        path: 'adminList',
+                        component: AdminList
+                    }, {
+                        path: 'rolelist',
+                        component: RoleList
+                    }]
+
+                }, {
+                    path: '/data',
+                    component: Data
+                },
+            ]
         },
         {
-            path:'/home',
-            component: Home
-        },{
-            path:'/goods',
-            component:Goods,
-            children:[{
-                path:'goodslist',
-                component: GoodsList,
-            },{
-                path:'goodsmsg',
-                component: GoodsMsg,
-            },{
-                path:'goodssort',
-                component: GoodsSort,
-            }]
-
-        },{
-            path:'/order',
-            component:Order,
-            children:[{
-                path:'orderlist',
-                component: OrderList,
-            }]
-        },{
-            path:'/user',
-            component:User,
-            children:[{
-                path:'userlist',
-                component: UserList,
-            }]
-
-        },{
-            path:'/adminmanage',
-            component: AdminManage,
-            children:[{
-                path:'adminList',
-                component:AdminList
-            },{
-                path:'rolelist',
-                component:RoleList
-            }]
-
-        },{
-            path:'/data',
-            component:Data
-        },{
-            path:'/404',
+            path: "/login",
+            component: Login
+        },
+        {
+            path: '/404',
             component: NotFound
 
-        },{
-            path:'*',
-            redirect:'/404'
+        }, {
+            path: '*',
+            redirect: '/404'
 
         }
     ]
