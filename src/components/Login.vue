@@ -109,7 +109,7 @@ export default {
   height: 100vh;
 }
 
-.box {
+.box {  
   width: 400px;
   height: 270px;
   background-color: white;
