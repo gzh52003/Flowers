@@ -9,9 +9,17 @@ import Order from '../components/order/OrderIndex.vue'
 import OrderList from '../components/order/OrderList.vue'
 
 import Goods from '../components/goods/GoodsIndex.vue'
+
 import GoodsList from '../components/goods/GoodsList.vue'
+import Add from '../components/goods/goodslist/add.vue'
+import Add1 from '../components/goods/goodslist/add1.vue'
+import Add2 from "../components/goods/goodslist/add2.vue"
+import Add3 from '../components/goods/goodslist/add3.vue'
+import Add4 from "../components/goods/goodslist/add4.vue"
+
 import GoodsMsg from '../components/goods/GoodsMsg.vue'
 import GoodsSort from '../components/goods/GoodsSort.vue'
+import GoodsAdd from '../components/goods/goodslist/add.vue'
 
 import AdminManage from '../components/admin/AdminIndex.vue'
 import AdminList from '../components/admin/AdminList.vue'
@@ -45,6 +53,9 @@ const router = new VueRouter({
                         path: 'goodslist',
                         component: GoodsList,
                     }, {
+                        path: "/add",
+                        component: GoodsAdd
+                    }, {
                         path: 'goodsmsg',
                         component: GoodsMsg,
                     }, {
@@ -52,6 +63,25 @@ const router = new VueRouter({
                         component: GoodsSort,
                     }]
 
+                },
+                {
+                    path: "/add",
+                    component: Add,
+                    children: [{
+                        path: "add1",
+                        component: Add1
+                    }, {
+                        path: "add2",
+                        component: Add2
+                    },
+                    {
+                        path: "add3",
+                        component: Add3
+                    }, {
+                        path: "add4",
+                        component: Add4
+                    },
+                    ]
                 }, {
                     path: '/order',
                     component: Order,
@@ -88,6 +118,8 @@ const router = new VueRouter({
             path: "/login",
             component: Login
         },
+
+
         {
             path: '/404',
             component: NotFound
