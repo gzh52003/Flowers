@@ -18,7 +18,7 @@
       autosize
     ></el-input>
 
-    <el-button type="primary" round style="margin-top:50px" @click="fasong">添加</el-button>
+    <el-button type="primary" round style="margin-top:50px" @click="fasong()">添加</el-button>
   </div>
 </template>
 
@@ -29,6 +29,11 @@ export default {
       textarea: "",
     };
   },
-  methods: {},
+  methods: {
+    fasong() {
+      alert("a");
+      console.log(this.$store);
+    },
+  },
 };
 </script>

@@ -286,6 +286,9 @@ export default {
       alert("asd");
     },
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    this.$store.commit("add", { one: 10, two: 20 });
+    alert("asd");
+  },
 };
 </script>

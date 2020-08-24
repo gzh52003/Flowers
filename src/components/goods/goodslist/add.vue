@@ -32,9 +32,7 @@
         </el-col>
 
         <el-col :span="15">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
+          <router-view></router-view>
         </el-col>
       </el-row>
     </div>
