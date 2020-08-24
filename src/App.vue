@@ -57,6 +57,7 @@
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>活动管理</el-breadcrumb-item>
         </el-breadcrumb> -->
+        
         <div style="padding:15px 0">
           <router-view />
         </div>
