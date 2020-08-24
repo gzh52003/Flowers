@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Home from '../components/Home.vue'
 import User from '../components/user/UserIndex.vue'
 import UserList from '../components/user/UserList.vue'
+import UserAdd from '../components/user/UserAdd.vue'
+import UserEdit from '../components/user/UserEdit.vue'
 
 import Order from '../components/order/OrderIndex.vue'
 import OrderList from '../components/order/OrderList.vue'
@@ -15,7 +17,7 @@ import GoodsSort from '../components/goods/GoodsSort.vue'
 
 import AdminManage from '../components/admin/AdminIndex.vue'
 import AdminList from '../components/admin/AdminList.vue'
-import RoleList from '../components/admin/RoleList.vue'
+
 import Data from '../components/data/Data.vue'
 
 import NotFound from '../components/NotFound.vue'
@@ -65,6 +67,13 @@ const router = new VueRouter({
                     children: [{
                         path: 'userlist',
                         component: UserList,
+                    },{
+                        path:'useradd',
+                        component: UserAdd,
+                    },{
+                        name:'userEdit',
+                        path:'useredit/:id',
+                        component: UserEdit,
                     }]
 
                 }, {
@@ -73,9 +82,6 @@ const router = new VueRouter({
                     children: [{
                         path: 'adminList',
                         component: AdminList
-                    }, {
-                        path: 'rolelist',
-                        component: RoleList
                     }]
 
                 }, {

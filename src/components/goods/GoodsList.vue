@@ -4,16 +4,15 @@
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/goods/goodslist'}">商品列表</el-breadcrumb-item>
     </el-breadcrumb>
-      goodslist
+    
   </div>
 </template>
 
 <script>
-export default {
-
-}
+ export default {
+   
+  };
 </script>
 
 <style>
-
 </style>
