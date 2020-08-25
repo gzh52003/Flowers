@@ -1,24 +1,11 @@
-# qfyzy
+### 鲜花后台管理系统
+管理成员：增删改查，设置权限（用户，管理员，超级管理员）。
+管理商品：增删改查。
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
+### 启动服务
 npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 打包项目
+npm run bulid
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
