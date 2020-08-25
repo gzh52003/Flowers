@@ -3,221 +3,158 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/user/userlist'}">成员列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path:'/user/useradd'}">添加成员</el-breadcrumb-item>
     </el-breadcrumb>
-
-    <template>
-      <div class="main">
-        <div style="margin-top: 15px;">
-          <el-input
-            placeholder="请输入内容"
-            v-model="search"
-            @change="handleSelect"
-            class="input-with-select"
-            style="width:350px"
-          >
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </div>
-        <el-table :data="tableData" style="width: 100%" class="biaoge">
-          <el-table-column label="#" type="index" width="80px"></el-table-column>
-          <el-table-column label="Name" prop="username"></el-table-column>
-          <el-table-column label="Gender" prop="gender"></el-table-column>
-          <el-table-column label="Phone" prop="phone"></el-table-column>
-          <el-table-column label="Email" prop="email"></el-table-column>
-          <el-table-column label="Status" prop="role"></el-table-column>
-          <el-table-column align="right">
-            <template slot="header" :slot-scope="scope">
-              <el-button type="primary" @click="addUser">添加成员</el-button>
-            </template>
-            <template v-slot:default="scope">
-              <el-button
-                size="mini"
-                type="primary"
-                icon="el-icon-edit"
-                circle
-                @click="userEdit(scope.row)"
-              ></el-button>
-              <el-button
-                size="mini"
-                type="danger"
-                @click="userDelete(scope.row)"
-                icon="el-icon-delete"
-                circle
-                slot="reference"
-              ></el-button>
-              <el-button type="warning" icon="el-icon-s-tools" size="mini" circle @click="open"></el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="block">
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="yema"
-            @prev-click="prevClick"
-            @next-click="nextClick"
-            :page-sizes="[5,10,15]"
-            :page-size="100"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="400"
-          ></el-pagination>
-        </div>
-        <template id="shu">
-        <el-tree
-          :data="data"
-          show-checkbox
-          node-key="id"
-          :default-expanded-keys="[2, 3]"
-          :default-checked-keys="[5]"
-          :props="defaultProps"
-        ></el-tree>
-        </template>
-      </div>
-    </template>
-
+    <el-form
+      :model="dynamicValidateForm"
+      ref="dynamicValidateForm"
+      :rules="rules"
+      label-width="100px"
+      class="demo-dynamic"
+      
+    >
+      <el-form-item label="姓名" prop="username" >
+        <el-input v-model="dynamicValidateForm.username"></el-input>
+      </el-form-item>
+      <el-form-item label="性别" prop="gender">
+        <el-radio v-model="dynamicValidateForm.gender" label="男">男</el-radio>
+        <el-radio v-model="dynamicValidateForm.gender" label="女">女</el-radio>
+      </el-form-item>
+      <el-form-item label="手机号" prop="phone">
+        <el-input type="tel" v-model="dynamicValidateForm.phone"></el-input>
+      </el-form-item>
+      <el-form-item
+        prop="email"
+        label="邮箱"
+        :rules="[
+      { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]"
+      >
+        <el-input v-model="dynamicValidateForm.email"></el-input>
+      </el-form-item>
+      <el-form-item label="职位" prop="role">
+        <el-select v-model="dynamicValidateForm.role">
+          <el-option label="管理" value="admin"></el-option>
+          <el-option label="经理" value="manager"></el-option>
+          <el-option label="主管" value="executive_director"></el-option>
+          <el-option label="总经理" value="general_manager"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item labev-model="dynamicValidateForm.role" label="密码" prop="pass">
+        <el-input type="password" v-model="dynamicValidateForm.pass"></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码" prop="checkPass">
+        <el-input type="password" v-model="dynamicValidateForm.checkPass"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+        <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
-
 <script>
-import Tree from "./Tree"
 export default {
   data() {
+    var validateName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("姓名不能为空"));
+      }else if(value.length < 2 || value.length > 10){
+        return callback(new Error("姓名为2至5个字符"))
+      }else{
+        callback()
+      }
+    };
+    var checkPhone = (rule, value, callback) => {
+      if (!/^1[3456789]\d{9}$/.test(value)) {
+        return callback(new Error("手机号码有误"));
+      }else{
+        callback()
+      }
+    };
+    var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        }else if(value.length < 6 || value.length > 12){
+          callback(new Error('密码长度为6至12位'));
+        }else{
+          if (this.dynamicValidateForm.checkPass !== '') {
+            this.$refs.dynamicValidateForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.dynamicValidateForm.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
     return {
-      shuliang: 7,
-      yema: 1,
-      tableData: [],
-      search: ""
+      dynamicValidateForm: {
+        username: "",
+        gender: "male",
+        email: "",
+        role: "admin",
+        phone: "",
+        pass:"",
+        checkPass:""
+
+      },
+      rules: {
+        username: [{ required: true,validator: validateName, trigger: "blur" }],
+        phone: [{ required: true,validator: checkPhone, trigger: "blur" }],
+        pass: [{ min: 6,max: 12,required: true,validator: validatePass, trigger: 'blur' }],
+        checkPass: [{ min: 6,max: 12,required: true,validator: validatePass2, trigger: 'blur' }],
+        radio: [{ required: true, trigger: 'blur' }],
+      }
     };
   },
   methods: {
-    userEdit(row) {
-      this.$router.push("/user/useredit/" + row._id);
-    },
-    async userDelete(row) {
-      this.$confirm('是否确认删除?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async ()=>{
-          await this.$request.delete("/remove/" + row._id);
-          this.tableData = this.tableData.filter(item=>item._id!==row._id);
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
+    async submitForm() {
+      this.$refs["dynamicValidateForm"].validate(async (valid) => {
+        if (valid) {
+            const {dynamicValidateForm} = this
+            console.log(this.dynamicValidateForm);
+          const {data} = await this.$request.post("/reg",{
+              ...dynamicValidateForm
           });
-        })
-    },
-    addUser() {
-      this.$router.push("/user/useradd");
-    },
-    async handleSelect() {
-      const data = await this.$request.get("/adminList", {
-        params: {
-          size: 1000
+          if(data.msg === "success"){
+              this.$message({
+                type: "success",
+                message: "添加成功",
+            });
+            this.$router()
+          }
+        } else {
+          console.log("error submit!!");
+          return false;
         }
       });
-      console.log(data);
-      if (this.search === "") {
-        this.tableData = data.data.data.result;
-      } else {
-        this.tableData = data.data.data.result.filter(
-          item => item.username === this.search
-        );
-      }
     },
-    open() {
-      const h = this.$createElement;
-      this.$msgbox({
-        title: "消息",
-        message: h(Tree),
-        showCancelButton: true,
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        beforeClose: (action, instance, done) => {
-          if (action === "confirm") {
-            instance.confirmButtonLoading = true;
-            instance.confirmButtonText = "执行中...";
-            setTimeout(() => {
-              done();
-              setTimeout(() => {
-                instance.confirmButtonLoading = false;
-              }, 300);
-            }, 3000);
-          } else {
-            done();
-          }
-        }
-      }).then(action => {
-        this.$message({
-          type: "info",
-          message: "action: " + action
-        });
-      });
-    },
-    handleSizeChange(val) {
-      this.shuliang = val;
-      this.handleCurrentChange();
-    },
-    prevClick() {
-      this.yema--;
-      this.handleCurrentChange();
-    },
-    nextClick() {
-      this.yema++;
-      this.handleCurrentChange();
-    },
-    handleCurrentChange: function(size) {
-      this.yema = size;
-      let $this = this;
-      this.$request
-        .get("/adminList", {
-          params: {
-            page: this.yema,
-            size: this.shuliang
-          }
-        })
-        .then(function(res) {
-          res.data.data.result.forEach(item => {
-            item.date = new Date().toLocaleString(item.date);
-            if (!item.LinePrice) {
-              item.LinePrice = item.Price;
-            }
-          });
-          $this.tableData = res.data.data.result;
-        });
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
-  },
-  async created() {
-    await this.$request
-      .get("/adminList", {
-        params: {
-          page: this.tema,
-          size: this.shuliang
-        }
-      })
-      .then(data => {
-        this.tableData = data.data.data.result;
-      });
   }
 };
 </script>
 
 <style>
-.main {
-  background: #ccc;
+.el-form-item {
+  margin-bottom: 16px;
+  width: 700px;
 }
-.el-pagination {
-  text-align: center;
+.el-form .el-form-item__content {
+  width: 70%;
 }
-.main {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  background: #fff;
-  padding: 20px 30px;
+.el-form {
+  width: 600px;
 }
-.block {
-  margin-top: 20px;
+.el-form .el-form-item__content {
+  width: 70% !important;
 }
 </style>
