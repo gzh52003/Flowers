@@ -80,7 +80,6 @@ export default {
               if (res.data.msg === "success") {
                 // console.log(res.data.data.authorization);
                 $this.$store.state.took = `${res.data.data.authorization}`;
-                console.log($this.$store.state.took);
                 $this.tok(res.data.data.authorization);
               } else {
                 document.querySelector(".user input").value = "";
@@ -183,5 +182,14 @@ export default {
   position: absolute;
   right: 0;
   bottom: -20px;
+}
+.demo-ruleForm {
+  width: 100%;
+}
+.is-required {
+  width: 100%;
+}
+.el-form-item {
+  width: 100%;
 }
 </style>

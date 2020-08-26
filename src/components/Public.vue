@@ -90,12 +90,12 @@ export default {
           icon: "el-icon-s-home",
         },
         {
-          text: "用户管理",
+          text: "成员管理",
           path: "/user",
           icon: "el-icon-s-custom",
           submenu: [
             {
-              text: "用户列表",
+              text: "成员列表",
               path: "/userlist",
             },
           ],
@@ -105,10 +105,6 @@ export default {
           path: "/adminmanage",
           icon: "el-icon-s-check",
           submenu: [
-            {
-              text: "角色列表",
-              path: "/rolelist",
-            },
             {
               text: "权限列表",
               path: "/adminlist",
@@ -126,7 +122,7 @@ export default {
             },
             {
               text: "分类参数",
-              path: "/goodsmsg",
+              path: "/goodsmsg/add5",
             },
             {
               text: "商品分类",

@@ -3,9 +3,15 @@ import App from './App.vue'
 // 1.引入vue-router
 import router from './router'
 import ElementUI from 'element-ui'
+import request from './utils/request.js'
 import 'element-ui/lib/theme-chalk/index.css';
 import echarts from 'echarts'
-import request from "./utils/request"
+
+
+Vue.use(ElementUI)
+Vue.prototype.$request = request
+Vue.prototype.$echarts = echarts
+// import request from "./utils/request"
 
 import md5 from 'js-md5'
 
@@ -13,10 +19,7 @@ import Vuex from "vuex"
 
 Vue.prototype.$md5 = md5
 
-Vue.prototype.$echarts = echarts
-Vue.prototype.$request = request
 
-Vue.use(ElementUI)
 Vue.use(Vuex)
 
 var store = new Vuex.Store({

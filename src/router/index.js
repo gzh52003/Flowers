@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Home from '../components/Home.vue'
 import User from '../components/user/UserIndex.vue'
 import UserList from '../components/user/UserList.vue'
+import UserAdd from '../components/user/UserAdd.vue'
+import UserEdit from '../components/user/UserEdit.vue'
 
 import Order from '../components/order/OrderIndex.vue'
 import OrderList from '../components/order/OrderList.vue'
@@ -17,13 +19,15 @@ import Add2 from "../components/goods/goodslist/add2.vue"
 import Add3 from '../components/goods/goodslist/add3.vue'
 
 
+import Add5 from "../components/goods/goodslist/add5.vue"
+
 import GoodsMsg from '../components/goods/GoodsMsg.vue'
 import GoodsSort from '../components/goods/GoodsSort.vue'
 import GoodsAdd from '../components/goods/goodslist/add.vue'
 
 import AdminManage from '../components/admin/AdminIndex.vue'
 import AdminList from '../components/admin/AdminList.vue'
-import RoleList from '../components/admin/RoleList.vue'
+
 import Data from '../components/data/Data.vue'
 
 import NotFound from '../components/NotFound.vue'
@@ -38,7 +42,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            redirect: '/home'
+            redirect: '/login'
         }, {
             path: "/public",
             component: Public,
@@ -58,6 +62,10 @@ const router = new VueRouter({
                     }, {
                         path: 'goodsmsg',
                         component: GoodsMsg,
+                        children: [{
+                            path: "add5",
+                            component: Add5,
+                        }]
                     }, {
                         path: 'goodssort',
                         component: GoodsSort,
@@ -92,6 +100,13 @@ const router = new VueRouter({
                     children: [{
                         path: 'userlist',
                         component: UserList,
+                    }, {
+                        path: 'useradd',
+                        component: UserAdd,
+                    }, {
+                        name: 'userEdit',
+                        path: 'useredit/:id',
+                        component: UserEdit,
                     }]
 
                 }, {
@@ -100,9 +115,6 @@ const router = new VueRouter({
                     children: [{
                         path: 'adminList',
                         component: AdminList
-                    }, {
-                        path: 'rolelist',
-                        component: RoleList
                     }]
 
                 }, {
