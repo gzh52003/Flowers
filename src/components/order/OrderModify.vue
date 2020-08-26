@@ -27,7 +27,7 @@
             change-on-select
             v-model="form.areaCode"
             @blur="handleAddressFun"
-        ></el-cascader> -->
+        ></el-cascader>-->
       </div>
     </el-form-item>
     <el-form-item label="详细地址" prop="detailed_address">
@@ -91,26 +91,28 @@ export default {
   },
   methods: {
     submitForm(formName) {
-  
       this.$refs[formName].validate(async (valid) => {
-     if(this.ruleForm.username !== '' || this.ruleForm.phone!== '' || this.jilian !== ''){
-         return false
-     }
-      switch(true){
-        case !this.ruleForm.username:
+        if (
+          this.ruleForm.username !== "" ||
+          this.ruleForm.phone !== "" ||
+          this.jilian !== ""
+        ) {
+          return false;
+        }
+        switch (true) {
+          case !this.ruleForm.username:
           case !this.ruleForm.phone:
-            case !this.ruleForm.jilian:
+          case !this.ruleForm.jilian:
+        }
 
-      }
-
-        if(valid) {
-          console.log(this.ruleForm.username)
-           await this.$request.put("/order/" + this.orderId, {
-            personalName:this.ruleForm.username,
-            personalPhone:this.ruleForm.phone,
-            personalDizhi:this.jilian+this.ruleForm.detailed_address,
+        if (valid) {
+          console.log(this.ruleForm.username);
+          await this.$request.put("/order/" + this.orderId, {
+            personalName: this.ruleForm.username,
+            personalPhone: this.ruleForm.phone,
+            personalDizhi: this.jilian + this.ruleForm.detailed_address,
           });
-          this.render()
+          this.render();
         } else {
           return false;
         }
@@ -120,30 +122,30 @@ export default {
       this.$refs[formName].resetFields();
     },
 
-        handleChange(data){
+    handleChange(data) {
+      let newdata = this.options;
 
-            let newdata = this.options
-         
-           this.jilian = data.map(function (value,) {
-                for (var itm of newdata) {
-                    console.log(itm.value)
-                    if (itm.value == value) { newdata = itm.children; return itm.label; }
-                }
+      this.jilian = data
+        .map(function (value) {
+          for (var itm of newdata) {
+            console.log(itm.value);
+            if (itm.value == value) {
+              newdata = itm.children;
+              return itm.label;
+            }
+          }
 
-                return null;
-            }).join();
-   
-        }
+          return null;
+        })
+        .join();
+    },
   },
   mounted() {
     Bus.$on("orderId", (id) => {
       this.orderId = id;
       console.log(this.orderId, "更新");
     });
-  
   },
- 
-
 };
 </script>
 <style>
