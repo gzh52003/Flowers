@@ -6,7 +6,9 @@ import ElementUI from 'element-ui'
 import request from './utils/request.js'
 import 'element-ui/lib/theme-chalk/index.css';
 import echarts from 'echarts'
+// import VDistpicker from 'v-distpicker'
 
+// Vue.component('v-distpicker', VDistpicker)
 
 Vue.use(ElementUI)
 Vue.prototype.$request = request
@@ -27,6 +29,7 @@ var store = new Vuex.Store({
     msg: '',
     took: "",
 
+    searchText: ''
   },
   mutations: { //  这里相当于Vue实例中的methods，用于定义方法 所有的方法都过来拿
     getMsg(state) {  // state是个形参 是state对象里面的数据都可以拿到 不通过this来拿
