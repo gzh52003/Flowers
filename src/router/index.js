@@ -15,7 +15,7 @@ import Add from '../components/goods/goodslist/add.vue'
 import Add1 from '../components/goods/goodslist/add1.vue'
 import Add2 from "../components/goods/goodslist/add2.vue"
 import Add3 from '../components/goods/goodslist/add3.vue'
-import Add4 from "../components/goods/goodslist/add4.vue"
+
 
 import GoodsMsg from '../components/goods/GoodsMsg.vue'
 import GoodsSort from '../components/goods/GoodsSort.vue'
@@ -77,9 +77,6 @@ const router = new VueRouter({
                     {
                         path: "add3",
                         component: Add3
-                    }, {
-                        path: "add4",
-                        component: Add4
                     },
                     ]
                 }, {

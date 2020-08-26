@@ -78,7 +78,10 @@ export default {
             })
             .then(function (res) {
               if (res.data.msg === "success") {
-                $this.$router.push({ path: "/" });
+                // console.log(res.data.data.authorization);
+                $this.$store.state.took = `${res.data.data.authorization}`;
+                console.log($this.$store.state.took);
+                $this.tok(res.data.data.authorization);
               } else {
                 document.querySelector(".user input").value = "";
                 document.querySelector(".pass input").value = "";
@@ -91,6 +94,24 @@ export default {
         }
       });
     },
+
+    tok(authorization) {
+      this.$request
+        .get("http://120.24.63.27:2001/api/jwtverify", {
+          params: {
+            authorization: authorization,
+          },
+        })
+        .then((ree) => {
+          if (ree.data.msg == "success") {
+            this.$router.push({ path: "/" });
+          }
+        });
+    },
+  },
+
+  created() {
+    this.tok(this.$store.state.took);
   },
 };
 </script>
