@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/user/userlist'}">成员列表</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -59,19 +59,9 @@
             :page-sizes="[5,10,15]"
             :page-size="100"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="400"
+            :total="total"
           ></el-pagination>
         </div>
-        <template id="shu">
-        <el-tree
-          :data="data"
-          show-checkbox
-          node-key="id"
-          :default-expanded-keys="[2, 3]"
-          :default-checked-keys="[5]"
-          :props="defaultProps"
-        ></el-tree>
-        </template>
       </div>
     </template>
 
@@ -84,10 +74,12 @@ import Tree from "./Tree"
 export default {
   data() {
     return {
-      shuliang: 7,
+      shuliang: 5,
       yema: 1,
       tableData: [],
-      search: ""
+      search: "",
+      total:"",
+      
     };
   },
   methods: {
@@ -192,12 +184,14 @@ export default {
     await this.$request
       .get("/adminList", {
         params: {
-          page: this.tema,
-          size: this.shuliang
+          page: this.yema,
+          size: this.shuliang,
+          total:true
         }
       })
       .then(data => {
         this.tableData = data.data.data.result;
+        this.total = data.data.total
       });
   }
 };

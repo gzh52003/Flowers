@@ -122,7 +122,7 @@ export default {
             },
             {
               text: "分类参数",
-              path: "/goodsmsg",
+              path: "/goodsmsg/add5",
             },
             {
               text: "商品分类",
