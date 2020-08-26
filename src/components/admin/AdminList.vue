@@ -73,8 +73,9 @@ export default {
       shuliang: 1000,
       tableData: []
     };
+    
   },
-  methods: {},
+  methods: {},  
   async created() {
     await this.$request
       .get("/adminList", {
