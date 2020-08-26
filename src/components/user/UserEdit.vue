@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/user/userlist'}">成员列表</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/user/useradd'}">编辑成员</el-breadcrumb-item>
     </el-breadcrumb>
@@ -71,18 +71,18 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$refs["ruleForm"].validate(async (valid) => {console.log(13,valid)
+      this.$refs["ruleForm"].validate(async (valid) => {
         if (valid) {
             const {userid,ruleForm} = this
           const {data} = await this.$request.put("/updata/"+userid,{
               ...ruleForm
           });
-          console.log(data);
           if(data.msg === "success"){
               this.$message({
                 type: "success",
                 message: "修改成功",
             });
+            this.$router.replace('/user/userlist');
           }
         } else {
           console.log("error submit!!");
@@ -94,11 +94,12 @@ export default {
   },
   async created() {
     const { id } = this.$route.params;
-    console.log(this.$route.params);
+    // console.log(this.$route.params);
     this.userid = id;
     const {data} = await this.$request.get("/adminList",{
       params:{
-        size:12
+        size:1000,
+        total:true
       }
     });
     const result = data.data.result.filter(item=>item._id === id)

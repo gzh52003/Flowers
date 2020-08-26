@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/user/userlist'}">成员列表</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/user/useradd'}">添加成员</el-breadcrumb-item>
     </el-breadcrumb>
@@ -40,7 +40,7 @@
           <el-option label="总经理" value="general_manager"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item labev-model="dynamicValidateForm.role" label="密码" prop="pass">
+      <el-form-item  label="密码" prop="pass">
         <el-input type="password" v-model="dynamicValidateForm.pass"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
@@ -103,7 +103,6 @@ export default {
         phone: "",
         pass:"",
         checkPass:""
-
       },
       rules: {
         username: [{ required: true,validator: validateName, trigger: "blur" }],
@@ -119,16 +118,21 @@ export default {
       this.$refs["dynamicValidateForm"].validate(async (valid) => {
         if (valid) {
             const {dynamicValidateForm} = this
-            console.log(this.dynamicValidateForm);
+            // console.log(this.dynamicValidateForm);
           const {data} = await this.$request.post("/reg",{
-              ...dynamicValidateForm
+              username:dynamicValidateForm.username,
+              gender:dynamicValidateForm.gender,
+              email:dynamicValidateForm.email,
+              role:dynamicValidateForm.role,
+              phone:dynamicValidateForm.phone,
+              password:this.$md5(dynamicValidateForm.pass+"laoxie"),
           });
           if(data.msg === "success"){
               this.$message({
                 type: "success",
                 message: "添加成功",
             });
-            this.$router()
+            this.$router.replace('/user/userlist');
           }
         } else {
           console.log("error submit!!");

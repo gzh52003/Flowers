@@ -78,7 +78,7 @@ export default {
             })
             .then(function (res) {
               if (res.data.msg === "success") {
-                $this.$router.push({ path: "/" });
+                $this.$router.push({ path: "/home" });
               } else {
                 document.querySelector(".user input").value = "";
                 document.querySelector(".pass input").value = "";
@@ -162,5 +162,14 @@ export default {
   position: absolute;
   right: 0;
   bottom: -20px;
+}
+.demo-ruleForm{
+  width:100%;
+}
+.is-required{
+  width:100%;
+}
+.el-form-item{
+  width: 100%;
 }
 </style>
