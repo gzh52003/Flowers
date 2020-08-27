@@ -206,7 +206,7 @@ body {
 }
 .el-container,
 .el-aside {
-  height: 100%;
+  height: calc(100% - 1px);
 }
 .is-active i {
   color: inherit !important;
