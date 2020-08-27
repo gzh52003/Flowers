@@ -18,7 +18,7 @@
         class="demo-ruleForm"
       >
         <el-form-item label prop="name">
-          <el-input v-model="ruleForm.name" class="user"></el-input>
+          <el-input v-model="ruleForm.name" class="user" ></el-input>
         </el-form-item>
         <el-form-item label prop="password">
           <el-input v-model="ruleForm.password" type="password" class="pass"></el-input>
@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       ruleForm: {
-        name: "",
-        password: "",
+        name: "asdf",
+        password: "asdfgh",
       },
       src:
         "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
@@ -103,7 +103,7 @@ export default {
         })
         .then((ree) => {
           if (ree.data.msg == "success") {
-            this.$router.push({ path: "/" });
+            this.$router.push({ path: "/home" });
           }
         });
     },

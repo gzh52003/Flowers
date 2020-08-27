@@ -176,6 +176,22 @@ export default {
       this.$router.push({ path: "/login" });
     },
   },
+
+
+  created(){
+     this.$request
+        .get("http://120.24.63.27:2001/api/jwtverify", {
+          params: {
+            authorization: this.$store.state.took,
+          },
+        })
+        .then((ree) => {
+          if (ree.data.msg == "no-permission") {
+            this.$router.push({ path: "/login" });
+          }
+          // console.log(ree.data)
+        });
+  }
 };
 </script>
 
@@ -208,7 +224,7 @@ body {
 }
 .el-container,
 .el-aside {
-  height: calc(100% - 1px);
+  height: calc(100% - 3px);
 }
 .is-active i {
   color: inherit !important;

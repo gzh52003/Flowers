@@ -85,7 +85,7 @@ export default {
             this.$router.replace('/user/userlist');
           }
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
@@ -103,7 +103,7 @@ export default {
       }
     });
     const result = data.data.result.filter(item=>item._id === id)
-    console.log(result,);
+    // console.log(result,);
     Object.assign(this.ruleForm,result[0])
 
   },

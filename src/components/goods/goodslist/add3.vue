@@ -31,13 +31,10 @@ export default {
   },
   methods: {
     fasong() {
-      // alert("a");
-      // console.log(this.$store.state.msg);
       let a = this.$store.state.msg.split(",");
       let b = {};
       a.forEach((item) => {
         item = item.split(":");
-        // console.log(item);
         if (item[1] == "") {
           this.$router.push({ path: "/add/add1" });
           this.$message.error("请输入必要的信息");
@@ -46,7 +43,6 @@ export default {
           b[item[0]] = item[1];
         }
       });
-      console.log(b);
       let $this = this;
       this.$request
         .post("http://120.24.63.27:2001/api/goods", {
@@ -56,7 +52,6 @@ export default {
           Sales: b.num,
         })
         .then(function (res) {
-          console.log(res.data);
           if (res.data.msg == "success") {
             $this.$message({
               message: "添加成功",

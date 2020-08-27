@@ -94,7 +94,6 @@ export default {
           }
         })
         this.tableData = dataArr;
-        console.log(this);
         
       });
     document.querySelector(".el-table__body-wrapper");

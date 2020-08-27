@@ -46,13 +46,11 @@ export default {
     return {
       methods: {
         tianjia: function () {
-          console.log("a");
           this.$router.push({ path: "/add/add2" });
         },
 
         // handleSelect(key, keyPath) {
         //   alert("asd");
-        //   console.log(key, keyPath);
         // },
 
         handleSelect() {

@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{path:'/adminmanage/adminlist'}">订单列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path:'/order/orderlist'}">订单列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="order-main">
       <el-row>
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     handleEdit(index, row) {
-      console.log(index, row);
+      // console.log(index, row);
       const h = this.$createElement;
       this.$msgbox({
         title: "修改信息",
@@ -120,7 +120,7 @@ export default {
       });
       this.$store.state.orderId = row._id;
       Bus.$emit("orderId", row._id);
-      console.log(this.$store.state.orderId, "存储");
+      // console.log(this.$store.state.orderId, "存储");
     },
     async handleDelete(index, row) {
       const h = this.$createElement;

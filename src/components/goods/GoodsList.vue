@@ -106,14 +106,12 @@ export default {
         .then(function (res) {
           $this.total = res.data.total;
           res.data.data.result.forEach((item) => {
-            // console.log(item);
             item.date = new Date().toLocaleString(item.date);
             if (!item.LinePrice) {
               item.LinePrice = item.Price;
             }
           });
           $this.tableData = res.data.data.result;
-          // console.log($this.tableData);
         });
     },
 
@@ -126,7 +124,6 @@ export default {
 
     nextClick() {
       this.yema = this.yema + 1;
-      console.log(this.yema);
     },
 
     handleSizeChange(size) {
@@ -136,7 +133,6 @@ export default {
 
     // 删除
     handleDelete(row) {
-      // console.log(row._id);
       let $this = this;
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -147,7 +143,6 @@ export default {
           this.$request
             .delete("http://120.24.63.27:2001/api/goods/" + row._id)
             .then(function (res) {
-              // console.log(res.data);
               if (res.data.msg == "success") {
                 $this.$message({
                   type: "success",
@@ -191,7 +186,6 @@ export default {
           dangerouslyUseHTMLString: true,
         }
       ).then(async () => {
-        console.log(row);
         let shopname = document.querySelector(".shopname").value;
         let shopprice = document.querySelector(".shopprice").value;
         let shopline = document.querySelector(".shopline").value;
@@ -204,7 +198,6 @@ export default {
             Sales: shopnum,
           })
           .then((res) => {
-            // console.log(res.data);
             if (res.data.msg == "success") {
               this.$message({
                 message: "修改成功",
@@ -214,7 +207,6 @@ export default {
             }
           });
       });
-      console.log(row);
     },
   },
 
@@ -229,17 +221,14 @@ export default {
         // size: 5,
       })
       .then(function (res) {
-        // console.log(res.data.data.result);
         $this.total = res.data.total;
         res.data.data.result.forEach((item) => {
-          // console.log(item);
           item.date = new Date(item.date).toLocaleString();
           if (!item.LinePrice) {
             item.LinePrice = item.Price;
           }
         });
         $this.tableData = res.data.data.result;
-        // console.log($this.tableData);
       });
   },
 };
