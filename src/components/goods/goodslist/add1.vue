@@ -20,17 +20,17 @@
         <el-input v-model="ruleForm.name" class="nnname"></el-input>
       </el-form-item>
       <el-form-item label="商品价格" prop="price">
-        <el-input v-model="ruleForm.price"></el-input>
+        <el-input v-model="ruleForm.price" type="number"></el-input>
       </el-form-item>
       <el-form-item label="祝福花语" prop="mes">
         <el-input v-model="ruleForm.mes"></el-input>
       </el-form-item>
       <el-form-item label="商品数量" prop="num">
-        <el-input v-model="ruleForm.num"></el-input>
+        <el-input v-model="ruleForm.num" type="number"></el-input>
       </el-form-item>
       <el-form-item label="商品分类" prop="region">
         <div class="block">
-          <el-cascader v-model="value" :options="options" :props="{ expandTrigger: 'hover' }"></el-cascader>
+          <el-cascader v-model="value" :options="options" :props="{ expandTrigger: 'hover' } "></el-cascader>
         </div>
       </el-form-item>
     </el-form>
@@ -275,20 +275,22 @@ export default {
           { required: true, message: "请输入商品数量", trigger: "blur" },
           { min: 1, max: 5, message: "长度在 1 到 5 个字符", trigger: "blur" },
         ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" },
-        ],
+        region: [{ message: "请选择商品类型", trigger: "change" }],
       },
     };
   },
   methods: {
-    handleSelect() {
-      alert("asd");
+    newBankName: function () {
+      //   this.$store.commit("newBankName", this.textValue);
+      // let name = document.querySelector(".nnname input").value;
+      // alert(name);
+      this.$store.state.msg = `name:${this.ruleForm.name},price:${this.ruleForm.price},mes:${this.ruleForm.mes},num:${this.ruleForm.num}`;
     },
   },
+
   beforeDestroy() {
-    this.$store.commit("add", { one: 10, two: 20 });
-    alert("asd");
+    this.newBankName();
+    // alert("asd");
   },
 };
 </script>

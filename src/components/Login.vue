@@ -78,7 +78,9 @@ export default {
             })
             .then(function (res) {
               if (res.data.msg === "success") {
-                $this.$router.push({ path: "/home" });
+                // console.log(res.data.data.authorization);
+                $this.$store.state.took = `${res.data.data.authorization}`;
+                $this.tok(res.data.data.authorization);
               } else {
                 document.querySelector(".user input").value = "";
                 document.querySelector(".pass input").value = "";
@@ -91,6 +93,24 @@ export default {
         }
       });
     },
+
+    tok(authorization) {
+      this.$request
+        .get("http://120.24.63.27:2001/api/jwtverify", {
+          params: {
+            authorization: authorization,
+          },
+        })
+        .then((ree) => {
+          if (ree.data.msg == "success") {
+            this.$router.push({ path: "/" });
+          }
+        });
+    },
+  },
+
+  created() {
+    this.tok(this.$store.state.took);
   },
 };
 </script>
@@ -109,7 +129,7 @@ export default {
   height: 100vh;
 }
 
-.box {  
+.box {
   width: 400px;
   height: 270px;
   background-color: white;
@@ -163,13 +183,13 @@ export default {
   right: 0;
   bottom: -20px;
 }
-.demo-ruleForm{
-  width:100%;
+.demo-ruleForm {
+  width: 100%;
 }
-.is-required{
-  width:100%;
+.is-required {
+  width: 100%;
 }
-.el-form-item{
+.el-form-item {
   width: 100%;
 }
 </style>

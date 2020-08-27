@@ -17,7 +17,8 @@ import Add from '../components/goods/goodslist/add.vue'
 import Add1 from '../components/goods/goodslist/add1.vue'
 import Add2 from "../components/goods/goodslist/add2.vue"
 import Add3 from '../components/goods/goodslist/add3.vue'
-import Add4 from "../components/goods/goodslist/add4.vue"
+
+
 import Add5 from "../components/goods/goodslist/add5.vue"
 
 import GoodsMsg from '../components/goods/GoodsMsg.vue'
@@ -61,8 +62,8 @@ const router = new VueRouter({
                     }, {
                         path: 'goodsmsg',
                         component: GoodsMsg,
-                        children:[{
-                            path:"add5",
+                        children: [{
+                            path: "add5",
                             component: Add5,
                         }]
                     }, {
@@ -84,9 +85,6 @@ const router = new VueRouter({
                     {
                         path: "add3",
                         component: Add3
-                    }, {
-                        path: "add4",
-                        component: Add4
                     },
                     ]
                 }, {
@@ -102,12 +100,12 @@ const router = new VueRouter({
                     children: [{
                         path: 'userlist',
                         component: UserList,
-                    },{
-                        path:'useradd',
+                    }, {
+                        path: 'useradd',
                         component: UserAdd,
-                    },{
-                        name:'userEdit',
-                        path:'useredit/:id',
+                    }, {
+                        name: 'userEdit',
+                        path: 'useredit/:id',
                         component: UserEdit,
                     }]
 

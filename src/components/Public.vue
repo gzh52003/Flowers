@@ -169,8 +169,10 @@ export default {
     },
 
     // 退出
+
     tuichu() {
       // console.log("a");
+      this.$store.state.took = "";
       this.$router.push({ path: "/login" });
     },
   },
